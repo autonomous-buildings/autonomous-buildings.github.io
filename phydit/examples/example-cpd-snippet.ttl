@@ -1,0 +1,40 @@
+%%--------example RDF?
+\begin{lstlisting}[language=SPARQL,numbers=none, basicstyle=\linespread{1.0}\ttfamily\footnotesize]
+# Abstract system description
+:boiler a pdt:System, brick:Boiler;
+    pdt:hasPart :burner;
+    pdt:hasPart :fuel-valve;
+    pdt:hasSpecification :min-airflow;
+    pdt:manages hvac:heat-generation.
+:fuel-valve a pdt:Actuator;
+    pdt:manipulates :fuel-flowrate;
+    pdt:relatedTo :burner-fuel-inlet. 
+:burner a pdt:Component, brick:Burner;
+    pdt:manages :combustion;
+    pdt:hasPort :burner-fuel-inlet.
+:min-airflow a pdt:DesignSpecification;
+    pdt:specifies :air-flowrate;
+    
+# The physical process
+hvac:heat-generation a pdt:PhysicalProcess;
+    pdt:hasMechanism hvac:combustion;
+:combustion a pdt:PhysicalMechanism, hvac:Combustion;
+    pdt:hasVariable :fuel-flowrate.
+:fuel-flowrate as pdt:ProcessVariable;
+    pdt:dealsWithStuff hvac:Fuel;
+    pdt:hasProcessPosition elem:inlet;
+    pdt:hasQuanityKind qudt:VolumeFlowRate.
+:air-flowrate as pdt:ProcessVariable;
+    pdt:dealsWithStuff hvac:Air;
+    pdt:hasProcessPosition elem:outlet;
+    pdt:hasQuanityKind qudt:VolumeFlowRate.
+    
+#Connecting IOs to sensors and actuators
+:combustion-control a pdt:ControlProgram;
+    pdt:hasOutput :valve-output;
+    pdt:intendedFor :boiler.
+:valve-output a pdt:Output;
+    pdt:intendedFor fuel-valve.
+:airflow-parameter a pdt:Parameter;
+    pdt:refersTo :min-airflow.
+\end{lstlisting}

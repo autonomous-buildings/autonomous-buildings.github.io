@@ -8,7 +8,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     <owl:Ontology rdf:about="http://www.w3id.org/PhyDiT">
-        <dc:date>2023-12-04</dc:date>        
+        <dc:date>2023-12-04</dc:date>
         <dc:description>PhyDiT provides the bare-essential classes and relationships which bridge to ontologies for control program description (like CTRLOnt, CDL etc.), system design description (like BRICK, SOSA, etc.), and physical process models (like OntoCAPE, Tubes, Flow etc.)</dc:description>
         <dc:description>https://github.com/autonomous-buildings/PhyDiT/blob/main/images/overview.png</dc:description>
         <dc:rights>This ontology is distributed under a Creative Commons Attribution License - http://creativecommons.org/licenses/by/3.0</dc:rights>
@@ -70,6 +70,7 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#affects">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Actuator"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
+        <rdfs:comment>Represents the physical influence of an actuator on a process variable which could be anywhere in the chain of process mechanisms. For example, when a valve actuator changes the opening in the flow path it influences the flow rate (immediat manipulation), but the influence of the changed flow rate may cause downstream or upstream effect - like changing the outlet temperature at a heat exchanger.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -81,6 +82,7 @@
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Sensor"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Component"/>
+        <rdfs:comment>The relationship between a process variable (and therefore of sensors and actuators that may be observing or manipulating) and a component which manages the process mechanism (to which the process variable is related)</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -90,6 +92,7 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#dealsWithStuff">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#PhysicalStuff"/>
+        <rdfs:comment>Refers to the physical stuff that process variable is specified for. For example, a variable &quot;air flow rate&quot; deals with &quot;air&quot; as the stuff.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -108,6 +111,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasDependentVariable">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasVariable"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#PhysicalMechanism"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
     </owl:ObjectProperty>
     
 
@@ -116,6 +121,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasIndependentVariable">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasVariable"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#PhysicalMechanism"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
     </owl:ObjectProperty>
     
 
@@ -124,6 +131,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasInput">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasProgramInterface"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ControlProgram"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Input"/>
     </owl:ObjectProperty>
     
 
@@ -132,6 +141,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasMaximumValue">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasValueSpecification"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Value"/>
     </owl:ObjectProperty>
     
 
@@ -141,6 +152,7 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasMeasurementUnit">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Unit"/>
+        <rdfs:comment>The engineering units used for measurement.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -150,6 +162,7 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasMechanism">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcess"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#PhysicalMechanism"/>
+        <rdfs:comment>This relation is used to model the situation that a PhysicalProcess is composed of one or more PhysicalMechanism.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -158,6 +171,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasMinimumValue">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasValueSpecification"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Value"/>
     </owl:ObjectProperty>
     
 
@@ -166,6 +181,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasNominalValue">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasValueSpecification"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Value"/>
     </owl:ObjectProperty>
     
 
@@ -174,6 +191,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasOutput">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasProgramInterface"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ControlProgram"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Output"/>
     </owl:ObjectProperty>
     
 
@@ -182,6 +201,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasParameter">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#hasProgramInterface"/>
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ControlProgram"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Parameter"/>
     </owl:ObjectProperty>
     
 
@@ -192,6 +213,7 @@
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#System"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Component"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#System"/>
+        <rdfs:comment>In this structural specification of a system, this relationship is used for specifying compositions (and aggregations).</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -200,7 +222,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasPort">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Component"/>
-        <rdfs:range rdf:resource="http://www.w3id.org/elementary#Port"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#Port"/>
+        <rdfs:comment>A Component may have one or more Ports through with stuff flows in or out.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -211,13 +234,18 @@
         <owl:equivalentProperty rdf:resource="http://www.w3id.org/PhyDiT#position"/>
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessPosition"/>
+        <rdfs:comment>Used for indicating &quot;where&quot; a process variable can be observed or manipulated. The position is enumeration off well-known locations like inlet, outlet, bypass, etc.</rdfs:comment>
     </owl:ObjectProperty>
     
 
 
     <!-- http://www.w3id.org/PhyDiT#hasProgramInterface -->
 
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasProgramInterface"/>
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#hasProgramInterface">
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ControlProgram"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProgramInterface"/>
+        <rdfs:comment>A control program has one or more interfaces to the outer world.</rdfs:comment>
+    </owl:ObjectProperty>
     
 
 
@@ -286,8 +314,10 @@
     <!-- http://www.w3id.org/PhyDiT#manipulates -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#manipulates">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/PhyDiT#affects"/>
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Actuator"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
+        <rdfs:comment>Represents the immediate physical influence of an actuator on a process variable.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -303,13 +333,17 @@
 
     <!-- http://www.w3id.org/PhyDiT#position -->
 
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#position"/>
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#position">
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessPosition"/>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.w3id.org/PhyDiT#refersTo -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#refersTo">
+        <owl:equivalentProperty rdf:resource="http://www.w3id.org/PhyDiT#specifiedBy"/>
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Parameter"/>
         <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
     </owl:ObjectProperty>
@@ -320,7 +354,26 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#relatedToPort">
         <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
-        <rdfs:range rdf:resource="http://www.w3id.org/elementary#Port"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3id.org/PhyDiT#specifiedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#specifiedBy">
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#Parameter"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
+        <rdfs:comment>A parameter (Parameter) of a control program can specify its source in the form of a DesignSpecification. For example, a control program might have a parameter which needs to be configured with the maximum input current of a component.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3id.org/PhyDiT#specifiesVariable -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/PhyDiT#specifiesVariable">
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#DesignSpecification"/>
+        <rdfs:range rdf:resource="http://www.w3id.org/PhyDiT#ProcessVariable"/>
+        <rdfs:comment>A design specification (DesignSpecification) refers to a process variable. For example, the specification for &quot;Maximum current drawn&quot; refers to the electrical current (say, in Amperes) at the inlet terminal of a component. The specification also states the value (see hasMinValue, hasMaxValue, and hasNominalValue)</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -338,7 +391,9 @@
 
     <!-- http://www.w3id.org/PhyDiT#isOptional -->
 
-    <owl:DatatypeProperty rdf:about="http://www.w3id.org/PhyDiT#isOptional"/>
+    <owl:DatatypeProperty rdf:about="http://www.w3id.org/PhyDiT#isOptional">
+        <rdfs:domain rdf:resource="http://www.w3id.org/PhyDiT#ProgramInterface"/>
+    </owl:DatatypeProperty>
     
 
 
@@ -357,6 +412,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Actuator">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PeripheralComponent"/>
+        <rdfs:comment>A device that changes the characterstics of a mechanical form or electrical parameters such that stuff that flows through the conduit or conducting media is influenced in at least one physical variable. Examples include valve actuator which changes the opening in the flow path (thereby changing the pressure drop) and variable frequency drive of a motor which changes the characterstics of the AC waveform.</rdfs:comment>
     </owl:Class>
     
 
@@ -365,6 +421,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Component">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#SystemDesignConcept"/>
+        <rdfs:comment>An electro-mechanical device that from a given abstraction of the system design manages a physical mechanism.</rdfs:comment>
     </owl:Class>
     
 
@@ -381,7 +438,7 @@
     <!-- http://www.w3id.org/PhyDiT#ControlProgramConcept -->
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#ControlProgramConcept">
-        <rdfs:comment>An abstract concept related to control programs</rdfs:comment>
+        <rdfs:comment>A concept related to describing a control program.</rdfs:comment>
     </owl:Class>
     
 
@@ -390,6 +447,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#DesignSpecification">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#SystemDesignConcept"/>
+        <rdfs:comment>Specification of nominal, minimum, or maximum value of some physical process variable or sizing or characterstic of the technical system. Examples: minimum air flow rate, maximum current, tank capacity, etc.</rdfs:comment>
     </owl:Class>
     
 
@@ -398,14 +456,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Input">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#ProgramInterface"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/PhyDiT#MeasurementUnit -->
-
-    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#MeasurementUnit">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The interface through which a program obtains the state of the controlled process. The state could be a measured physical variable or a signal which could be potentially interesting to the program.</rdfs:comment>
     </owl:Class>
     
 
@@ -414,6 +465,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Output">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#ProgramInterface"/>
+        <rdfs:comment>The interface through with a program acts on the physical process. This is usually done by signaling an actuator.</rdfs:comment>
     </owl:Class>
     
 
@@ -422,6 +474,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Parameter">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#ProgramInterface"/>
+        <rdfs:comment>A value that is used or produced by the program for or by some intermediate computation.</rdfs:comment>
     </owl:Class>
     
 
@@ -430,6 +483,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PeripheralComponent">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#Component"/>
+        <rdfs:comment>A component that does not play a direct role in the physical process but either observes a process variable it or actuates another component.</rdfs:comment>
     </owl:Class>
     
 
@@ -438,6 +492,8 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PhysicalMechanism">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>PhySys (Pim Borst et al) defines this as &quot;a specification of a generic physical principal or law&quot;. It covers &quot;source, storage, dissipation, conversion, and distribution (of stuff in a process)&quot;. A practical take on this is for the automation application is that a mechanism is enaged in a distinct transformation of the state of a stuff (substance or energy). For example, in pump, the fluids static pressure is increased by transferring kinetic energy from the impeller. Examples include pressurization, combusion, heat transfer, throttling, etc.</rdfs:comment>
+        <rdfs:seeAlso>PhysicalProcess</rdfs:seeAlso>
     </owl:Class>
     
 
@@ -446,13 +502,17 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PhysicalProcess">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>A physical process formed by a composition of mechanisms. The simplest process may have just one mechanism. A process is formed with an objective of tranforming one or more stuff by passing it through a chain of mechanisms. For example, dehumidification as a process may include first cooling the air below its dew point temperature and then reheating it.</rdfs:comment>
+        <rdfs:seeAlso>PhysicalMechanism, PhysicalStuff</rdfs:seeAlso>
     </owl:Class>
     
 
 
     <!-- http://www.w3id.org/PhyDiT#PhysicalProcessConcept -->
 
-    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PhysicalProcessConcept">
+        <rdfs:comment>A concept that is used for describing the physical process and its physical mechanisms.</rdfs:comment>
+    </owl:Class>
     
 
 
@@ -460,6 +520,17 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#PhysicalStuff">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>Substance (matter) or energy which is involved in the physical process or mechanism. Examples include, air, water, heat, electrical current, etc.</rdfs:comment>
+        <rdfs:seeAlso></rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3id.org/PhyDiT#Port -->
+
+    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Port">
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#SystemDesignConcept"/>
+        <rdfs:comment>The physical connection point on a component through which stuff flows in or out.</rdfs:comment>
     </owl:Class>
     
 
@@ -468,6 +539,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#ProcessPosition">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The position relative to a mechanism when we describe a process variable. This can be namely inlet or outlet. For example, we can say water temperature at inlet of the heat-exchange mechanism.</rdfs:comment>
     </owl:Class>
     
 
@@ -476,6 +548,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#ProcessVariable">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The pyhsical variable that describes the state (quantity) of a stuff. The description of a variable therefore includes the stuff, quantity kind, and measurement units.</rdfs:comment>
     </owl:Class>
     
 
@@ -484,6 +557,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#ProgramInterface">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#ControlProgramConcept"/>
+        <rdfs:comment>The (software) interface of a control program</rdfs:comment>
     </owl:Class>
     
 
@@ -492,6 +566,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#QuantityKind">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The state or measurement of a (quantifiable) stuff.</rdfs:comment>
     </owl:Class>
     
 
@@ -500,6 +575,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Sensor">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PeripheralComponent"/>
+        <rdfs:comment>A device that uses a physical mechanism to measure a quantity and consequently produces a signal that is in a standard form to be an input to a controller hardware. The mechanism is implemented by a sensing element in the sensor. Additional electro-mechanical apparatus (more often electronics) interface with the sensing element to produce a standard signal form (e.g. 0-10V DC, 4-20mA, potential-free contact, etc.)</rdfs:comment>
     </owl:Class>
     
 
@@ -508,13 +584,16 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#System">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#SystemDesignConcept"/>
+        <rdfs:comment>A composition of components with a coherent set of process goals.</rdfs:comment>
     </owl:Class>
     
 
 
     <!-- http://www.w3id.org/PhyDiT#SystemDesignConcept -->
 
-    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#SystemDesignConcept"/>
+    <owl:Class rdf:about="http://www.w3id.org/PhyDiT#SystemDesignConcept">
+        <rdfs:comment>A concept related to describing the structural design of a technical system.</rdfs:comment>
+    </owl:Class>
     
 
 
@@ -522,6 +601,7 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Unit">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The unit of measurement for a quantity kind.</rdfs:comment>
     </owl:Class>
     
 
@@ -530,15 +610,11 @@
 
     <owl:Class rdf:about="http://www.w3id.org/PhyDiT#Value">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/PhyDiT#PhysicalProcessConcept"/>
+        <rdfs:comment>The measured value (or quantity)</rdfs:comment>
     </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#Port -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#Port"/>
 </rdf:RDF>
 
 
 
 <!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+

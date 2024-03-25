@@ -1,0 +1,78 @@
+{
+
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1",
+        "https://www.w3id.org/phydit/",
+        {"@base": "http://example.org/boiler-01/"},
+        {"brick": "http://example.org/boiler-01/"},
+        {"hvac": "http://example.org/boiler-01/"},
+        {"qudt": "http://example.org/boiler-01/"}
+    ],
+
+    "title": "Boiler for heating system",
+
+    "securityDefinitions": {"nosec_sc": {"scheme": "nosec" }},
+    "security": "nosec_sc",
+
+    "@type": "brick:Boiler",
+    "manages": {"@type":"hvac:EnergyConversion"},
+    "system-model": "/model/tsd-blr-01.rdf",
+    "simulation-model":"http://server/boiler.fmu",
+
+    "specification": [
+        {
+            "quantityKind":"qudt:VolumeFlowRate",
+            "hasMinValue":50, 
+            "unit":"qudt:L-PER-MIN",
+            "stuff":"brick:Water",
+            "atComponent": {"@type": "hvac:BoilerTube"},
+            "position": "elem:inlet" 
+        }
+    ],
+
+    "actions": {
+        "fuel-valve-actuation": {
+            "title": "Modulate Fuel Flowrate",
+            "relatedTo": {"@type":"hvac:Combustion"},
+            "manipulates":{ 
+                "stuff":"brick:fuel", 
+                "atComponent": {"@type": "hvac:Burner"},
+                "position": "elem:inlet", 
+                "quantityKind":"qudt:VolumeFlowRate"
+            },
+            "affects":{  
+                "stuff":"brick:water",
+                "atComponent": {"@type":"hvac:BoilerTube"},
+                "position":"elem:outlet", 
+                "quantityKind":"qudt:Temperature"
+            },
+            "forms": [
+                {
+                    "op": "invokeaction", 
+                    "href": "/actuators/fuel-valve"
+                }
+            ],
+            "type": "number", "minimum":0, "maximum":100 
+        }
+    },
+    
+    "properties": {
+        "water-outlet-temperature":{
+            "titel": "Water temperature at tube outlet",
+            "observes":{ 
+                "stuff":"brick:Water", 
+                "atComponent": {"@type": "hvac:BoilerTube"},
+                "position": "elem:outlet", 
+                "quantityKind":"qudt:Temperature",
+                "unit":"qudt:DEGREE-CELSIUS"
+            },
+            "forms": [
+                {
+                    "op": "readproperty", 
+                    "href": "/sensors/water-out-temperature"
+                }
+            ],
+            "type": "number", "minimum":-50, "maximum":150 
+        }
+    }
+}

@@ -1,0 +1,142 @@
+@prefix : <http://www.example.org/boiler-controller#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pdt: <http://www.w3id.org/PhyDiT#>.
+@prefix wot: <https://www.w3.org/2019/wot/td#>.
+@prefix brick: <https://brickschema.org/schema/1.3/Brick#>.
+@prefix qk: <http://qudt.org/vocab/quantitykind/>.
+@prefix elem: <http://www.w3id.org/elementary#>.
+@prefix blr-cp: <http://www.example.org/boiler-controller#> .
+@base <http://www.example.org/boiler-controller#/> .
+
+<http://www.example.org/boiler-controller#> rdf:type owl:Ontology ;
+                                             owl:imports <http://www.w3id.org/PhyDiT> ,
+                                                         <https://brickschema.org/schema/1.3/Brick> .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.example.org/boiler-controller#cpd-pm-combustion
+:cpd-pm-combustion rdf:type owl:NamedIndividual ,
+                            elem:Combustion ;
+                   pdt:feeds :cpd-pm-heat-transfer ;
+                   pdt:hasIndependentVariable :cpd-pv-fuel-input-rate .
+
+
+###  http://www.example.org/boiler-controller#cpd-pm-heat-transfer
+:cpd-pm-heat-transfer rdf:type owl:NamedIndividual ,
+                               elem:HeatTransfer ;
+                      pdt:hasDependentVariable :cpd-pv-outlet-water-temperature .
+
+
+###  http://www.example.org/boiler-controller#cpd-pv-fuel-input-rate
+:cpd-pv-fuel-input-rate rdf:type owl:NamedIndividual ,
+                                 pdt:ProcessVariable ;
+                        pdt:dealsWithStuff brick:Fuel ;
+                        pdt:hasQuantityKind qk:VolumeFlowRate .
+
+
+###  http://www.example.org/boiler-controller#cpd-pv-outlet-water-temperature
+:cpd-pv-outlet-water-temperature rdf:type owl:NamedIndividual ,
+                                          pdt:ProcessVariable ;
+                                 pdt:dealsWithStuff brick:Water ;
+                                 pdt:hasProcessPosition elem:outlet ;
+                                 pdt:hasQuantityKind qk:Temperature .
+
+
+###  http://www.example.org/boiler-controller#cpd-ts-boiler
+:cpd-ts-boiler rdf:type owl:NamedIndividual ,
+                        pdt:System ,
+                        brick:Boiler ;
+               pdt:manages :cpd-pm-combustion ;
+               pdt:hasPart :cpd-ts-fuel-flow-sensor ,
+                                                        :cpd-ts-fuel-valve ,
+                                                        :cpd-ts-water-temperature-sensor .
+
+
+###  http://www.example.org/boiler-controller#cpd-ts-fuel-flow-sensor
+:cpd-ts-fuel-flow-sensor rdf:type owl:NamedIndividual ,
+                                  brick:Flow_Sensor ;
+                         pdt:observes :cpd-pv-fuel-input-rate .
+
+
+###  http://www.example.org/boiler-controller#cpd-ts-fuel-valve
+:cpd-ts-fuel-valve rdf:type owl:NamedIndividual ,
+                            brick:Valve ;
+                   pdt:affects :cpd-pv-outlet-water-temperature ;
+                   pdt:manipulates :cpd-pv-fuel-input-rate .
+
+
+###  http://www.example.org/boiler-controller#cpd-ts-water-temperature-sensor
+:cpd-ts-water-temperature-sensor rdf:type owl:NamedIndividual ,
+                                          brick:Temperature_Sensor ;
+                                 pdt:observes :cpd-pv-outlet-water-temperature .
+
+
+###  http://www.example.org/boiler-controller#/cp-boiler-controller
+:cp-boiler-controller rdf:type owl:NamedIndividual ,
+                               pdt:ControlProgram ;
+                      pdt:hasInput :cpd-input-boiler-fuel-flowrate ,
+                                                                :cpd-input-boiler-hotwater-temperature ;
+                      pdt:hasOutput :cpd-output-boiler-fuel-valve ;
+                      pdt:hasParameter :cpd-param-boiler-hotwater-temperature-setpoint ;
+                      pdt:isIntendedFor :cpd-pm-combustion ,
+                                                                     :cpd-ts-boiler .
+
+
+###  http://www.example.org/boiler-controller#/cpd-input-boiler-fuel-flowrate
+:cpd-input-boiler-fuel-flowrate rdf:type owl:NamedIndividual ,
+                                         pdt:Input ;
+                                pdt:isIntendedFor :cpd-ts-fuel-flow-sensor ;
+                                pdt:isOptional "true"^^xsd:boolean .
+
+
+###  http://www.example.org/boiler-controller#/cpd-input-boiler-hotwater-temperature
+:cpd-input-boiler-hotwater-temperature rdf:type owl:NamedIndividual ,
+                                                pdt:Input ;
+                                       pdt:isIntendedFor :cpd-ts-water-temperature-sensor .
+
+
+###  http://www.example.org/boiler-controller#/cpd-output-boiler-fuel-valve
+:cpd-output-boiler-fuel-valve rdf:type owl:NamedIndividual ,
+                                       pdt:Output ;
+                              pdt:isIntendedFor :cpd-ts-fuel-valve .
+
+
+###  http://www.example.org/boiler-controller#/cpd-param-boiler-hotwater-temperature-setpoint
+:cpd-param-boiler-hotwater-temperature-setpoint rdf:type owl:NamedIndividual ,
+                                                         pdt:Parameter .
+
+
+###  http://www.example.org/boiler-controller#/ts-boiler
+:ts-boiler rdf:type owl:NamedIndividual ,
+                    pdt:System ,
+                    brick:Boiler ;
+           pdt:hasPart :tsi-boiler-fuel-flowrate ,
+                                                    :tsi-boiler-fuel-valve ,
+                                                    :tsi-boiler-hotwater-temperature .
+
+
+###  http://www.example.org/boiler-controller#/tsi-boiler-fuel-flowrate
+:tsi-boiler-fuel-flowrate rdf:type owl:NamedIndividual ,
+                                   pdt:Sensor ,
+                                   brick:Flow_Sensor .
+
+
+###  http://www.example.org/boiler-controller#/tsi-boiler-fuel-valve
+:tsi-boiler-fuel-valve rdf:type owl:NamedIndividual ,
+                                pdt:Actuator ,
+                                brick:Valve .
+
+
+###  http://www.example.org/boiler-controller#/tsi-boiler-hotwater-temperature
+:tsi-boiler-hotwater-temperature rdf:type owl:NamedIndividual ,
+                                          pdt:Sensor ,
+                                          brick:Hot_Water_Supply_Temperature_Sensor .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

@@ -1,0 +1,195 @@
+@prefix : <http://www.example.org/boiler-01-td#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pdt: <http://www.w3id.org/PhyDiT#>.
+@prefix wot: <https://www.w3.org/2019/wot/td#>.
+@prefix brick: <https://brickschema.org/schema/1.3/Brick#>.
+@prefix qk: <http://qudt.org/vocab/quantitykind/>.
+@prefix elem: <http://www.w3id.org/elementary#>.
+@prefix blr-01: <http://www.example.org/boiler-01-td#> .
+@base <http://www.example.org/boiler-01-td#> .
+
+<http://www.example.org/boiler-01-td#> rdf:type owl:Ontology ;
+                                        owl:imports <http://www.w3id.org/PhyDiT> ,
+                                                    <https://www.w3.org/2019/wot/td> .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://brickschema.org/schema/Brick#Air_Flow_Sensor
+brick:Air_Flow_Sensor rdf:type owl:Class .
+
+
+###  https://brickschema.org/schema/Brick#Boiler
+brick:Boiler rdf:type owl:Class .
+
+
+###  https://brickschema.org/schema/Brick#Flow_Sensor
+brick:Flow_Sensor rdf:type owl:Class .
+
+
+###  https://brickschema.org/schema/Brick#Temperature_Sensor
+brick:Temperature_Sensor rdf:type owl:Class .
+
+
+###  https://brickschema.org/schema/Brick#Valve
+brick:Valve rdf:type owl:Class .
+
+
+###  https://brickschema.org/schema/Brick#Variable_Frequency_Drive
+brick:Variable_Frequency_Drive rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://qudt.org/vocab/quantitykind/Temperature
+<http://qudt.org/vocab/quantitykind/Temperature> rdf:type owl:NamedIndividual .
+
+
+###  http://qudt.org/vocab/quantitykind/VolumeFlowRate
+<http://qudt.org/vocab/quantitykind/VolumeFlowRate> rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.org/boiler-01-td#actuator-fan-drive
+blr-01:actuator-fan-drive rdf:type owl:NamedIndividual ,
+                                   pdt:Actuator ,
+                                   brick:Variable_Frequency_Drive,
+                                   wot:ActionAffordance;
+                          pdt:atComponent blr-01:component-fan ;
+                          pdt:manipulates blr-01:var-air-inlet-flowrate .
+
+
+###  http://www.example.org/boiler-01-td#actuator-fuel-valve
+blr-01:actuator-fuel-valve rdf:type owl:NamedIndividual ,
+                                    pdt:Actuator,
+                                    brick:Valve,
+                                    wot:ActionAffordance;
+                           pdt:atComponent blr-01:component-burner ;
+                           pdt:affects blr-01:var-water-outlet-temperature ;
+                           pdt:manipulates blr-01:var-fuel-flowrate .
+
+
+###  http://www.example.org/boiler-01-td#component-burner
+blr-01:component-burner rdf:type owl:NamedIndividual ,
+                                 pdt:Component .
+
+
+###  http://www.example.org/boiler-01-td#component-fan
+blr-01:component-fan rdf:type owl:NamedIndividual ,
+                              pdt:Component.
+
+
+###  http://www.example.org/boiler-01-td#component-heatexchanger
+blr-01:component-heatexchanger rdf:type owl:NamedIndividual ,
+                                        pdt:Component.
+
+
+###  http://www.example.org/boiler-01-td#sensor-air-flowrate
+blr-01:sensor-air-flowrate rdf:type owl:NamedIndividual ,
+                                    pdt:Sensor ,
+                                    brick:Air_Flow_Sensor ,
+                                    wot:PropertyAffordance ;
+                           pdt:atComponent blr-01:component-fan ;
+                           pdt:observes blr-01:var-air-inlet-flowrate .
+
+
+###  http://www.example.org/boiler-01-td#sensor-fuel-flowrate
+blr-01:sensor-fuel-flowrate rdf:type owl:NamedIndividual ,
+                                     pdt:Sensor ,
+                                     brick:Flow_Sensor ,
+                                     wot:PropertyAffordance;
+                            pdt:atComponent blr-01:component-burner ;
+                            pdt:observes blr-01:var-fuel-flowrate .
+
+
+###  http://www.example.org/boiler-01-td#sensor-water-inlet-temperature
+blr-01:sensor-water-inlet-temperature rdf:type owl:NamedIndividual ,
+                                               pdt:Sensor ,
+                                               brick:Temperature_Sensor ,
+                                               wot:PropertyAffordance ;
+                                      pdt:atComponent blr-01:component-heatexchanger ;
+                                      pdt:observes blr-01:var-water-inlet-temperature .
+
+
+###  http://www.example.org/boiler-01-td#sensor-water-outlet-temperature
+blr-01:sensor-water-outlet-temperature rdf:type owl:NamedIndividual ,
+                                                pdt:Sensor ,
+                                                brick:Temperature_Sensor ,
+                                                wot:PropertyAffordance ;
+                                       pdt:atComponent blr-01:component-heatexchanger ;
+                                       pdt:observes blr-01:var-water-outlet-temperature .
+
+
+###  http://www.example.org/boiler-01-td#thing-boiler-01
+blr-01:thing-boiler-01 rdf:type owl:NamedIndividual ,
+                                pdt:System ,
+                                brick:Boiler,
+                                wot:Thing ;
+                       wot:hasActionAffordance blr-01:actuator-fuel-valve ;
+                       wot:hasActionAffordance blr-01:actuator-fan-drive ;
+                       wot:hasPropertyAffordance blr-01:sensor-water-inlet-temperature;
+                       wot:hasPropertyAffordance blr-01:sensor-air-flowrate; 
+                       wot:hasPropertyAffordance blr-01:sensor-fuel-flowrate; 
+                       wot:hasPropertyAffordance blr-01:sensor-water-outlet-temperature .
+
+
+###  http://www.example.org/boiler-01-td#var-air-inlet-flowrate
+blr-01:var-air-inlet-flowrate rdf:type owl:NamedIndividual ,
+                                       pdt:ProcessVariable ;
+                              pdt:dealsWithStuff brick:Air ;
+                              pdt:hasProcessPosition elem:inlet ;
+                              pdt:hasQuantityKind qk:VolumeFlowRate .
+
+
+###  http://www.example.org/boiler-01-td#var-fuel-flowrate
+blr-01:var-fuel-flowrate rdf:type owl:NamedIndividual ,
+                                  pdt:ProcessVariable ;
+                         pdt:dealsWithStuff <https://brickschema.org/schema/BrickTag#Fuel> ;
+                         pdt:hasProcessPosition elem:inlet ;
+                         pdt:hasQuantityKind qk:VolumeFlowRate .
+
+
+###  http://www.example.org/boiler-01-td#var-water-inlet-temperature
+blr-01:var-water-inlet-temperature rdf:type owl:NamedIndividual ,
+                                            pdt:ProcessVariable ;
+                                   pdt:dealsWithStuff brick:Water ;
+                                   pdt:hasProcessPosition elem:inlet ;
+                                   pdt:hasQuantityKind qk:Temperature .
+
+
+###  http://www.example.org/boiler-01-td#var-water-outlet-temperature
+blr-01:var-water-outlet-temperature rdf:type owl:NamedIndividual ,
+                                             pdt:ProcessVariable ;
+                                    pdt:dealsWithStuff brick:Water ;
+                                    pdt:hasProcessPosition elem:outlet ;
+                                    pdt:hasQuantityKind qk:Temperature .
+
+
+###  http://www.w3id.org/elementary#inlet
+pdt:inlet rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elementary#outlet
+pdt:outlet rdf:type owl:NamedIndividual .
+
+
+###  https://brickschema.org/schema/Brick#Air
+brick:Air rdf:type owl:NamedIndividual .
+
+
+###  https://brickschema.org/schema/Brick#Water
+brick:Water rdf:type owl:NamedIndividual .
+
+
+###  https://brickschema.org/schema/BrickTag#Fuel
+<https://brickschema.org/schema/BrickTag#Fuel> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
