@@ -24,7 +24,6 @@
     <!-- http://www.w3id.org/elementary#affectedUpstreamVariable -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#affectedUpstreamVariable">
-        <owl:equivalentProperty rdf:resource="http://www.w3id.org/elementary#upstreamEffect"/>
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://www.w3id.org/elementary#hasStereotype"/>
@@ -91,14 +90,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#decreases">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#modulates"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.w3id.org/elementary#directProportion -->
-
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#directProportion">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#affects"/>
     </owl:ObjectProperty>
     
 
@@ -337,11 +328,9 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#hasPosition -->
+    <!-- http://www.w3id.org/elementary#hasPositionalRelationTo -->
 
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasPosition">
-        <owl:equivalentProperty rdf:resource="http://www.w3id.org/elementary#hasProcessPosition"/>
-    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasPositionalRelationTo"/>
     
 
 
@@ -359,7 +348,9 @@
 
     <!-- http://www.w3id.org/elementary#hasProcessPosition -->
 
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasProcessPosition"/>
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasProcessPosition">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#hasPositionalRelationTo"/>
+    </owl:ObjectProperty>
     
 
 
@@ -428,28 +419,6 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#indirectProportion -->
-
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#indirectProportion">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#affects"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.w3id.org/elementary#isCompatibleTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isCompatibleTo"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary#isFlowCompatibleTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isFlowCompatibleTo">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#isCompatibleTo"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.w3id.org/elementary#isIntendedFor -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isIntendedFor"/>
@@ -459,6 +428,22 @@
     <!-- http://www.w3id.org/elementary#isPartOf -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isPartOf"/>
+    
+
+
+    <!-- http://www.w3id.org/elementary#isPlacedAfter -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isPlacedAfter">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#hasPositionalRelationTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3id.org/elementary#isPlacedBefore -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#isPlacedBefore">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#hasPositionalRelationTo"/>
+    </owl:ObjectProperty>
     
 
 
@@ -530,6 +515,7 @@
     <!-- http://www.w3id.org/elementary#relatedToPort -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#relatedToPort">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#hasPositionalRelationTo"/>
         <rdfs:comment>A peripheral (sensor or actuator) may be related to a port in such a way that the variable it act upon or observes is primarily located at the port. For example, to state heating coil air outlet temperature, or pump inlet valve.</rdfs:comment>
     </owl:ObjectProperty>
     
@@ -546,12 +532,6 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#suitableFor">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#hasStreamKind"/>
     </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.w3id.org/elementary#upstreamEffect -->
-
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#upstreamEffect"/>
     
 
 
@@ -603,15 +583,6 @@
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#Acutation">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#AutomationConcept"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#Ambient -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#Ambient">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Sink"/>
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Source"/>
     </owl:Class>
     
 
@@ -684,14 +655,6 @@
     <owl:Class rdf:about="http://www.w3id.org/elementary#ConnectionPoint">
         <owl:equivalentClass rdf:resource="http://www.w3id.org/elementary#Port"/>
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#SystemDesignConcept"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#Container -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#Container">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Component"/>
     </owl:Class>
     
 
@@ -779,7 +742,7 @@
     <!-- http://www.w3id.org/elementary#ElectrostaticForce -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#ElectrostaticForce">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Effort"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalStuff"/>
     </owl:Class>
     
 
@@ -824,22 +787,6 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#FaultEffect -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#FaultEffect">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#FaultMode -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#FaultMode">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.w3id.org/elementary#FiniteStateMachine -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#FiniteStateMachine">
@@ -867,7 +814,7 @@
     <!-- http://www.w3id.org/elementary#GravitationalForce -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#GravitationalForce">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Effort"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalStuff"/>
     </owl:Class>
     
 
@@ -907,7 +854,7 @@
     <!-- http://www.w3id.org/elementary#MagneticForce -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#MagneticForce">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Effort"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalStuff"/>
     </owl:Class>
     
 
@@ -923,15 +870,6 @@
     <!-- http://www.w3id.org/elementary#MeasurementConnectionPoint -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#MeasurementConnectionPoint">
-        <owl:equivalentClass rdf:resource="http://www.w3id.org/elementary#MeasurementPort"/>
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#MeasurementPort -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#MeasurementPort">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
     </owl:Class>
     
@@ -956,7 +894,7 @@
     <!-- http://www.w3id.org/elementary#MechanicalForce -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#MechanicalForce">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Effort"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalStuff"/>
     </owl:Class>
     
 
@@ -1013,30 +951,6 @@
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#PhysicalMechanism">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-        <rdfs:subClassOf>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.w3id.org/elementary#PhysicalMechanism"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.w3id.org/elementary#hasDependentVariable"/>
-                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                        <owl:onClass rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.w3id.org/elementary#PhysicalMechanism"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.w3id.org/elementary#hasIndependentVariable"/>
-                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                        <owl:onClass rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -1063,26 +977,9 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#PhysicalState -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#PhysicalState">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.w3id.org/elementary#PhysicalStuff -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#PhysicalStuff">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.w3id.org/elementary#PhysicalVariable -->
-
-    <owl:Class rdf:about="http://www.w3id.org/elementary#PhysicalVariable">
-        <owl:equivalentClass rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
     </owl:Class>
     
@@ -1125,12 +1022,6 @@
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#ProcessVariable">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#PhysicalProcessConcept"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.w3id.org/elementary#hasProcessPosition"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -1170,7 +1061,7 @@
     <!-- http://www.w3id.org/elementary#Sink -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#Sink">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
     </owl:Class>
     
 
@@ -1178,7 +1069,7 @@
     <!-- http://www.w3id.org/elementary#Source -->
 
     <owl:Class rdf:about="http://www.w3id.org/elementary#Source">
-        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
     </owl:Class>
     
 
@@ -1288,14 +1179,6 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#across -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#across">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.w3id.org/elementary#air -->
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#air">
@@ -1334,9 +1217,9 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#contained -->
+    <!-- http://www.w3id.org/elementary#containment -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#contained">
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#containment">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
     </owl:NamedIndividual>
     
@@ -1362,42 +1245,11 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#force -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#force">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#MechanicalForce"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.w3id.org/elementary#fuel -->
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#fuel">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#Substance"/>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#gas -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#gas">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalState"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#inflow -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#inflow">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary#inlet"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#inlet -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary#inlet"/>
     
 
 
@@ -1413,14 +1265,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#kinetic_energy">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#EnergyForm"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#liquid -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#liquid">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalState"/>
     </owl:NamedIndividual>
     
 
@@ -1451,29 +1295,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#outlet">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary#outlfow"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#outlfow -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary#outlfow"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary#outlfow -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#outlfow">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#plasma -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#plasma">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalState"/>
     </owl:NamedIndividual>
     
 
@@ -1482,14 +1303,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#pressurization">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#ElectroMechanicalConversion"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#solid -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#solid">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalState"/>
     </owl:NamedIndividual>
     
 
@@ -1506,14 +1319,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#thermal_energy">
         <rdf:type rdf:resource="http://www.w3id.org/elementary#EnergyForm"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary#torsional_force -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#torsional_force">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#MechanicalForce"/>
     </owl:NamedIndividual>
     
 
