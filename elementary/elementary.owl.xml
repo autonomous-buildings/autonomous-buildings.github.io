@@ -377,6 +377,12 @@
     
 
 
+    <!-- http://www.w3id.org/elementary#hasSimulationModel -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasSimulationModel"/>
+    
+
+
     <!-- http://www.w3id.org/elementary#hasStereotype -->
 
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasStereotype"/>
@@ -397,6 +403,12 @@
     <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasSubstance">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#dealsWithStuff"/>
     </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3id.org/elementary#hasTarget -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#hasTarget"/>
     
 
 
@@ -428,9 +440,9 @@
     
 
 
-    <!-- http://www.w3id.org/elementary#indirectProportion -->
+    <!-- http://www.w3id.org/elementary#inverseProportion -->
 
-    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#indirectProportion">
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/elementary#inverseProportion">
         <rdfs:subPropertyOf rdf:resource="http://www.w3id.org/elementary#affects"/>
     </owl:ObjectProperty>
     
